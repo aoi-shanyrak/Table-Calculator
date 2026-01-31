@@ -5,7 +5,7 @@
 
 class Parser {
  public:
-  Parser(Token_stream& t) : ts(t) {}
+  explicit Parser(Token_stream& t) : ts(t) {}
 
   void calculate();
 

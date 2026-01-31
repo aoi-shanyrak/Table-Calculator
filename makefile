@@ -9,13 +9,13 @@ BASE_CXXFLAGS := -Wall -Wextra -Wpedantic -Wshadow -Wformat=2 -Wconversion \
 SANITIZERS := -fsanitize=address -fsanitize=undefined -fsanitize=leak
 DEBUG := -g3 -O0
 
-DEBUG_CXXFLAGS := -std=$(CXX_STD) $(BASE_CXXFLAGS) $(DEBUG) $(OPTIMIZE) $(SANITIZERS)
+DEBUG_CXXFLAGS := -std=$(CXX_STD) $(BASE_CXXFLAGS) $(DEBUG) $(SANITIZERS)
 
 RELEASE_FLAGS := -std=$(CXX_STD) -Wall -Wextra -Wpedantic -O3 -march=native -flto 
 
 TARGET := calculator
 
-SOURCES = $(wildcard ./*.c)
+SOURCES = $(wildcard ./*.cpp)
 
 all: debug
 
@@ -29,7 +29,7 @@ $(TARGET):
 	$(CXX) $(CXXFLAGS) $(SOURCES) -o $@
 
 clean:
-	rm -f $(CLEAN_PATHS)
+	rm -f $(TARGET)
 
 rebuild: clean all
 

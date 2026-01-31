@@ -52,11 +52,12 @@ double Parser::prim(bool get) {
       return val;
     }
     case Kind::minus: return -prim(true);
-    case Kind::lp:
+    case Kind::lp: {
       double e = expr(true);
       if (ts.current().kind != Kind::rp) error("missing ')'");
       ts.get();
       return e;
-    default: error("primary expected");
+    }
+    default: error("primary expected"); return 0;
   }
 }

@@ -1,6 +1,5 @@
 #pragma once
 #include <iostream>
-#include <memory>
 
 enum class Kind : char {
   name,
@@ -27,14 +26,19 @@ struct Token {
 
 class Token_stream {
  public:
-  Token_stream(std::istream& s) : ip(&s) {}
-  Token_stream(std::istream* p) : ip(std::move(p)) {}
+  explicit Token_stream(std::istream& s) : ip(&s), owns {false} {}
+  explicit Token_stream(std::istream* p) : ip(p), owns {true} {}
 
   Token get();
   const Token& current();
 
  private:
-  std::unique_ptr<std::istream> ip;
+  void close() {
+    if (owns) delete ip;
+  }
+
+  std::istream* ip;
+  bool owns;
   Token ct;
 };
 

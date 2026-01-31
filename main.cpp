@@ -2,11 +2,13 @@
 
 #include "parser.hpp"
 
-int main() {
-  Token_stream ts {std::cin};
-  Parser parser(ts);
+int main(int argc, char* argv[]) {
+  if (argc == 1) {
+    Token_stream ts {std::cin};
+    Parser parser(ts);
 
-  parser.calculate();
-
+    std::cout << "Table Calculator: Ctrl + D to exit" << std::endl;
+    parser.calculate();
+  }
   return 0;
 }

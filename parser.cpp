@@ -5,11 +5,20 @@
 #include "parser.hpp"
 
 void Parser::calculate() {
+  bool need_arrow = true;
   while (true) {
+    if (need_arrow) {
+      std::cout << "> ";
+      need_arrow = false;
+    }
     ts.get();
     if (ts.current().kind == Kind::end) break;
-    if (ts.current().kind == Kind::print) continue;
+    if (ts.current().kind == Kind::print) {
+      need_arrow = true;
+      continue;
+    }
     std::cout << expr(false) << std::endl;
+    need_arrow = true;
   }
 }
 

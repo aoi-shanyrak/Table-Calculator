@@ -28,6 +28,7 @@ class Token_stream {
  public:
   explicit Token_stream(std::istream& s) : ip(&s), owns {false} {}
   explicit Token_stream(std::istream* p) : ip(p), owns {true} {}
+  ~Token_stream() { close(); }
 
   Token get();
   const Token& current();

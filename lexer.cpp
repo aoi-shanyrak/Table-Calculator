@@ -17,7 +17,7 @@ Token Token_stream::get() {
 
   switch (ch) {
     case '\n':
-    case ';': return ct = {Kind::end};
+    case ';': return ct = {Kind::print};
     case '*':
     case '/':
     case '+':
@@ -44,8 +44,8 @@ Token Token_stream::get() {
       if (isalpha(ch)) {
         ct.string_value = ch;
         while (ip->get(ch) and isalnum(ch)) ct.string_value += ch;
-        ct.kind = Kind::name;
-        return ct;
+        ip->putback(ch);
+        return ct = {Kind::name};
       }
       error("bad token");
       return ct = {Kind::end};

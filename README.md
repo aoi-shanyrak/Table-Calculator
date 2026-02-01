@@ -44,6 +44,7 @@ make clean
 ```bash
 
 ./calculator
+Table Calculator: Ctrl + D to exit
 > 2 + 3 * 4
 14
 > x = 5
@@ -52,5 +53,5 @@ make clean
 10
 > x + y
 15
-> Ctrl+D to exit
+> 
 ```

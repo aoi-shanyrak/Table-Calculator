@@ -15,7 +15,7 @@ RELEASE_FLAGS := -std=$(CXX_STD) -Wall -Wextra -Wpedantic -O3 -march=native -flt
 
 TARGET := calculator
 
-SOURCES = $(wildcard ./*.cpp)
+SOURCES = $(wildcard ./*/*.cpp)
 
 all: debug
 

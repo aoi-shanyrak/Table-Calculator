@@ -1,10 +1,26 @@
 #include <iostream>
 #include <string>
 
-#include "parser_impl.hpp"
-#include "table.hpp"
+#include "lexer.hpp"
+#include "parser.hpp"
 
-using namespace Parser;
+void Parser::calculate() {
+  bool need_arrow = true;
+  while (true) {
+    if (need_arrow) {
+      std::cout << "> ";
+      need_arrow = false;
+    }
+    ts.get();
+    if (ts.current().kind == Kind::end) break;
+    if (ts.current().kind == Kind::print) {
+      need_arrow = true;
+      continue;
+    }
+    std::cout << expr(false) << std::endl;
+    need_arrow = true;
+  }
+}
 
 double Parser::expr(bool get) {
   double left = term(get);
@@ -40,7 +56,7 @@ double Parser::prim(bool get) {
       return val;
     }
     case Kind::name: {
-      double& val = Table::table[ts.current().string_value];
+      double& val = table[ts.current().string_value];
       if (ts.get().kind == Kind::assign) val = expr(true);
       return val;
     }

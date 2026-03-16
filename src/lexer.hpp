@@ -1,46 +1,51 @@
 #pragma once
+
 #include <iostream>
 
-enum class Kind : char {
-  name,
-  number,
-  end,
-  plus = '+',
-  minus = '-',
-  mul = '*',
-  div = '/',
-  print = ';',
-  assign = '=',
-  lp = '(',
-  rp = ')'
-};
+namespace Lexer {
 
-struct Token {
-  Kind kind;
-  std::string string_value;
-  double number_value;
+  enum class Kind : char {
+    name,
+    number,
+    end,
+    plus = '+',
+    minus = '-',
+    mul = '*',
+    div = '/',
+    print = ';',
+    assign = '=',
+    lp = '(',
+    rp = ')'
+  };
 
-  Token(Kind k = Kind::end, std::string s = "", double n = 0.0)
-      : kind {k}, string_value(std::move(s)), number_value {n} {}
-};
+  struct Token {
+    Kind kind;
+    std::string string_value;
+    double number_value;
 
-class Token_stream {
- public:
-  explicit Token_stream(std::istream& s) : ip(&s), owns {false} {}
-  explicit Token_stream(std::istream* p) : ip(p), owns {true} {}
-  ~Token_stream() { close(); }
+    Token(Kind k = Kind::end, std::string s = "", double n = 0.0)
+        : kind {k}, string_value(std::move(s)), number_value {n} {}
+  };
 
-  Token get();
-  const Token& current();
+  class Token_stream {
+   public:
+    explicit Token_stream(std::istream& s) : ip(&s), owns {false} {}
+    explicit Token_stream(std::istream* p) : ip(p), owns {true} {}
+    ~Token_stream() { close(); }
 
- private:
-  void close() {
-    if (owns) delete ip;
-  }
+    Token get();
+    const Token& current();
 
-  std::istream* ip;
-  bool owns;
-  Token ct;
-};
+   private:
+    void close() {
+      if (owns) delete ip;
+    }
 
-void error(const std::string&);
+    std::istream* ip;
+    bool owns;
+    Token ct;
+  };
+
+  extern Token_stream ts;
+
+}

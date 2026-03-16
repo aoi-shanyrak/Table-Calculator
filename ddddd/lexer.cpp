@@ -1,11 +1,5 @@
-#include <cctype>
-
-#include "error.hpp"
 #include "lexer.hpp"
 
-using namespace Lexer;
-
-Token_stream ts {std::cin};
 
 const Token& Token_stream::current() {
   return ct;
@@ -50,7 +44,6 @@ Token Token_stream::get() {
         ip->putback(ch);
         return ct = {Kind::name};
       }
-      Error::error("bad token");
       return ct = {Kind::end};
   }
 }

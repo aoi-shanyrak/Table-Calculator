@@ -5,7 +5,7 @@
 
 using namespace Lexer;
 
-Token_stream ts {std::cin};
+Token_stream Lexer::ts {std::cin};
 
 const Token& Token_stream::current() {
   return ct;
